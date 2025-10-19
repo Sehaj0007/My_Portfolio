@@ -64,8 +64,8 @@ pipeline {
                     
                     echo "Deploying ${IMAGE_NAME}:latest to local Docker..."
                     
-                    bat "docker stop ${containerName} || true"
-                    bat "docker rm ${containerName} || true"
+                    bat "docker stop ${containerName}"
+                	bat "docker rm ${containerName}"
                     bat "docker pull ${IMAGE_NAME}:latest"
                     bat "docker run -d -p 8090:8090 --name ${containerName} --rm ${IMAGE_NAME}:latest"
                     
