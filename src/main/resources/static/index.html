@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Developer Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. CSS Variables & Global Reset --- */
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --primary-color: #00bfa5; /* A bright, modern teal */
+            --primary-hover: #00ab95;
+            --text-color: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --border-color: #333;
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 3rem; color: #fff; }
+        h2 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 2rem; }
+        p { font-size: 1rem; color: var(--text-secondary); margin-bottom: 1rem; }
+        img { max-width: 100%; }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        section {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* --- 2. Navigation --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1.25rem 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .navbar .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .navbar .nav-links a {
+            color: var(--text-color);
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Mobile Nav Toggle */
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* --- 3. Hero Section --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: #111;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background: var(--surface-color);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            margin-left: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: #111;
+        }
+
+        /* --- 4. About Section --- */
+        #about .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        #about .about-image-placeholder {
+            width: 250px;
+            height: 250px;
+            background-color: var(--surface-color);
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin: 0 auto;
+        }
+
+        /* --- 5. Projects Section --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--surface-color);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-card .project-image-placeholder {
+            height: 200px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .project-card-content {
+            padding: 1.5rem;
+        }
+        
+        .project-card-content h3 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-tags {
+            margin-bottom: 1rem;
+        }
+        
+        .project-tags span {
+            display: inline-block;
+            background-color: var(--bg-color);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-links a {
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+        
+        /* --- 6. Contact Section --- */
+        #contact {
+            text-align: center;
+        }
+        
+        #contact p {
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            font-size: 1.1rem;
+        }
+        
+        /* --- 7. Footer --- */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: var(--surface-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* --- 8. Animations & Responsive Design --- */
+        
+        /* Fade-in animation for sections */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .navbar .container {
+                padding: 0 1rem;
+            }
+            
+            /* Mobile Nav Menu */
+            .nav-toggle {
+                display: block;
+                z-index: 1001;
+            }
+            
+            .navbar .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Start off-screen */
+                width: 60%;
+                height: 100vh;
+                background-color: var(--surface-color);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.3s ease-in-out;
+            }
+            
+            .navbar .nav-links.nav-active {
+                right: 0;
+            }
+            
+            .navbar .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            #about .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-content .btn {
+                display: block;
+                width: 100%;
+                margin: 0 0 1rem 0;
+            }
+            
+            .btn-secondary {
+                margin: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">MyPortfolio</a>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                &#9776; </button>
+        </div>
+    </nav>
+
+    <header class="hero" id="hero">
+        <div class="hero-content animated-section">
+            <div class="subtitle">Hi, my name is</div>
+            <h1>Sehajpreet Kaur</h1>
+            <p>I'm a Java Developer & DevOps enthusiast. I build and automate modern web applications using Spring Boot, Jenkins, and Docker. This very site is proof!</p>
+            <a href="#projects" class="btn">View My Work</a>
+            <a href="https://github.com/your-username" target="_blank" class="btn btn-secondary">View GitHub</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="about" class="animated-section">
+            <div class="container">
+                <h2 style="text-align: center;">About Me</h2>
+                <div class="about-content">
+                    <div class="about-image-placeholder">
+                        (Your Photo Here)
+                    </div>
+                    <div class="about-text">
+                        <h3>Hello there!</h3>
+                        <p>I am a passionate software developer with a strong focus on backend technologies and a growing passion for the entire CI/CD lifecycle.</p>
+                        <p>My goal is to not only write clean, efficient Java code but also to understand how to build, test, and deploy it seamlessly. This portfolio project is my first step into automating the full development pipeline.</p>
+                        <p>Key Skills: <strong>Java, Spring Boot, Maven, Git, Jenkins, Docker, SQL</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="animated-section">
+            <div class="container">
+                <h2 style="text-align: center;">My Projects</h2>
+                <div class="project-grid">
+                    
+                    <div class="project-card">
+                        <div class="project-image-placeholder">Project Visual Placeholder</div>
+                        <div class="project-card-content">
+                            <h3>CI/CD Portfolio Pipeline</h3>
+                            <div class="project-tags">
+                                <span>Java</span>
+                                <span>Spring Boot</span>
+                                <span>Jenkins</span>
+                                <span>Docker</span>
+                                <span>Git</span>
+                            </div>
+                            <p>An automated CI/CD pipeline that builds, tests, and deploys this very portfolio website. Triggered by every Git push.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/your-username/portfolio-pipeline" target="_blank">View on GitHub</a>
+                                </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image-placeholder">Project Visual Placeholder</div>
+                        <div class="project-card-content">
+                            <h3>E-Commerce REST API</h3>
+                            <div class="project-tags">
+                                <span>Java</span>
+                                <span>Spring Security</span>
+                                <span>JPA</span>
+                                <span>PostgreSQL</span>
+                            </div>
+                            <p>A secure backend API for an e-commerce platform, featuring user authentication, product catalog, and order processing.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/your-username/ecommerce-api" target="_blank">View on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image-placeholder">Project Visual Placeholder</div>
+                        <div class="project-card-content">
+                            <h3>Another Cool Project</h3>
+                            <div class="project-tags">
+                                <span>Python</span>
+                                <span>Flask</span>
+                                <span>Heroku</span>
+                            </div>
+                            <p>A simple web app or data science project. Customize this card to fit your own work.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/your-username/another-project" target="_blank">View on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="animated-section">
+            <div class="container">
+                <h2>Get In Touch</h2>
+                <p>I'm always open to new opportunities and collaborations. Feel free to send me an email or connect with me on LinkedIn.</p>
+                <a href="mailto:your.email@example.com" class="btn">pro.sehaj@gmail.com</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sehajpreet Kaur. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Mobile Nav Toggle ---
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('nav-active');
+            });
+
+            // --- Close mobile nav when a link is clicked ---
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('nav-active')) {
+                        navLinks.classList.remove('nav-active');
+                    }
+                });
+            });
+
+            // --- Intersection Observer for fade-in animations ---
+            const animatedSections = document.querySelectorAll('.animated-section');
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.15 // 15% of the section must be visible
+            });
+
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+
+        });
+    </script>
+</html>

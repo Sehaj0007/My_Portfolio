@@ -1,0 +1,27 @@
+# Compiled Java class files
+*.class
+
+# Log files
+*.log
+
+# Build output
+/target/
+
+# Maven metadata
+.mvn/
+mvnw
+mvnw.cmd
+
+# Eclipse IDE files
+.settings/
+.classpath
+.project
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
