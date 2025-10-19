@@ -59,19 +59,31 @@ pipeline {
         // --- STAGE 4: DEPLOY TO LOCAL DOCKER ---
         stage('Deploy to Local Docker') {
             steps {
-                script {
-                    def containerName = 'portfolio-app-live'
-                    
-                    echo "Deploying ${IMAGE_NAME}:latest to local Docker..."
-                    
+            script {
+                def containerName = 'portfolio-app-live'
+
+                echo "Deploying ${IMAGE_NAME}:latest to local Docker..."
+
+                // --- Catch potential errors for stop/rm ---
+                catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
+                    echo "Attempting to stop container ${containerName}..."
                     bat "docker stop ${containerName}"
-                	bat "docker rm ${containerName}"
-                    bat "docker pull ${IMAGE_NAME}:latest"
-                    bat "docker run -d -p 8090:8090 --name ${containerName} --rm ${IMAGE_NAME}:latest"
-                    
-                    echo "Deployment complete. Application should be running at http://localhost:8090"
                 }
+                catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
+                    echo "Attempting to remove container ${containerName}..."
+                    bat "docker rm ${containerName}"
+                }
+                // --- End of error catching ---
+
+                echo "Pulling latest image..."
+                bat "docker pull ${IMAGE_NAME}:latest"
+
+                echo "Running new container..."
+                bat "docker run -d -p 8090:8090 --name ${containerName} --rm ${IMAGE_NAME}:latest"
+
+                echo "Deployment complete. Application should be running at http://localhost:8090"
             }
+        }
         }
         
     } // End of stages
