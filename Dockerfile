@@ -1,6 +1,6 @@
 # --- Stage 1: The Build Stage ---
 # Use an official Maven image with Java 17 to build the application
-FROM maven:3.9.8-eclipse-temurin-17-focal AS build
+FROM maven:3.9.8-eclipse-temurin-21-jammy AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -19,14 +19,14 @@ RUN mvn clean package -DskipTests
 
 # --- Stage 2: The Final Stage ---
 # Use a lightweight JRE image for the final container
-FROM eclipse-temurin:17-jre-focal
+FROM eclipse-temurin:21-jre-jammy
 
 # Set the working directory
 WORKDIR /app
 
 # Set an environment variable for the port
 # This tells our Spring Boot app to run on 8090
-ENV SERVER_PORT 8090
+ENV SERVER_PORT=8090
 
 # Expose port 8090 to the outside world
 EXPOSE 8090
